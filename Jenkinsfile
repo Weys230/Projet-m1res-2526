@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+         stage('Clean SCM') {
+            steps {
+                sh 'rm -r Projet-m1res-2526'
+            }
+        }
+        stage('Checkout SCM') {
+            steps {
+                sh 'git clone https://github.com/Weys230/Projet-m1res-2526.git'
+            }
+        }
+    }
+}

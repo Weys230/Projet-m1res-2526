@@ -71,8 +71,8 @@ EOF
             steps {
                 script {
                     echo "=== Suppression de l'ancien conteneur (s'il existe) ==="
-                    sh 'docker stop monapp'
-                    sh 'docker rm monapp'
+                    sh 'docker stop monapp || true'
+                    sh 'docker rm monapp || true'
 
                     echo "=== Lancement du nouveau conteneur ==="
                     sh 'docker run -d --name monapp --hostname monapp -p 8585:80 mynginx:v0.1'

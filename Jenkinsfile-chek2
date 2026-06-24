@@ -40,8 +40,13 @@ EOF
 
                     echo "=== 5. Configuration des droits et services ==="
                     sudo chmod 666 /var/run/docker.sock
+                    
+                    # Ajout de l'utilisateur jenkins au groupe docker
                     sudo usermod -aG docker jenkins
-                    sudo usermod -aG docker med || true
+                    
+                    # Ajout de l'utilisateur weys au groupe docker (avec || true au cas où)
+                    sudo usermod -aG docker weys || true
+                    
                     sudo systemctl restart docker.service
                 '''
             }

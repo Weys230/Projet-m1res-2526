@@ -33,6 +33,7 @@ RUN echo 'PubkeyAuthentication yes' >> /etc/ssh/sshd_config
 EXPOSE 80 22
 
 RUN echo "root:Respons11" | chpasswd
+COPY site1 /var/www/html
 
 # Démarrage de SSH (Apache sera lancé manuellement ou via Ansible)
 CMD ["/usr/sbin/sshd", "-D"]

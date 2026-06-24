@@ -15,7 +15,6 @@ pipeline {
 
         stage('Install Docker') {
             steps {
-                // Utilisation des triples guillemets pour exécuter un bloc Bash complet proprement
                 sh '''
                     echo "=== 1. Nettoyage des paquets conflictuels ==="
                     sudo apt-get remove -y docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc || true
@@ -66,10 +65,18 @@ EOF
                     sh 'docker image ls'
                 }
             }
+        } // CORRECTION : Il manquait cette accolade pour fermer le stage 'build-image-ubuntu-nginx'
+        
         stage('deploiement conteneur') {
-           steps {
-               script {
-                sh 'docker run -d --name monapp --hostname monapp -p 8585:80 mynginx'
+            steps {
+                script {
+                    echo "=== Suppression de l'ancien conteneur (s'il existe) ==="
+                    sh 'docker stop monapp || true'
+                    sh 'docker rm monapp || true'
+
+                    echo "=== Lancement du nouveau conteneur ==="
+                    sh 'docker run -d --name monapp --hostname monapp -p 8585:80 mynginx:v0.1'
+                }
             }
         }
     }

@@ -1,0 +1,23 @@
+pipeline {
+          agent any
+             stages {
+                    stage('cleanUp') {
+                           steps {
+                                  cleanWS()
+                           }
+               }
+               stage('Checkout SCM') {
+                     steps {
+ git branch: 'main', url: 'https://github.com/Weys230/Projet-m1res-2526.git'
+                    }
+               }
+                stage('build-image-ubuntu-nginx') {
+                         steps {
+                             script {
+              sh 'docker build -t mynginx .'
+              sh 'docker tag mynginx:v0.1'
+                        }
+              }
+          }
+      }
+ }

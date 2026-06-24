@@ -70,6 +70,7 @@ EOF
            steps {
                script {
                 sh 'docker run -d --name monapp --hostname monapp -p 8585:80 mynginx'
+            }
         }
     }
 }

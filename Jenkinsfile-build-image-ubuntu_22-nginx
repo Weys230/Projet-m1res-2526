@@ -1,23 +1,28 @@
 pipeline {
-          agent any
-             stages {
-                    stage('cleanUp') {
-                           steps {
-                                  cleanWs()
-                           }
-               }
-               stage('Checkout SCM') {
-                     steps {
- git branch: 'main', url: 'https://github.com/Weys230/Projet-m1res-2526.git'
-                    }
-               }
-                stage('build-image-ubuntu-nginx') {
-                         steps {
-                             script {
-              sh 'docker build -t mynginx .'
-              sh 'docker tag mynginx:v0.1'
-                        }
-              }
-          }
-      }
- }
+    agent any
+    stages {
+        stage('cleanUp') {
+            steps {
+                // Correction : "s" minuscule à cleanWs()
+                cleanWs()
+            }
+        }
+        
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Weys230/Projet-m1res-2526.git'
+            }
+        }
+        
+        stage('build-image-ubuntu-nginx') {
+            steps {
+                script {
+                    sh 'docker build -t mynginx .'
+                    
+                    // Correction : on précise l'image source (mynginx:latest) vers la nouvelle étiquette (mynginx:v0.1)
+                    sh 'docker tag mynginx:latest mynginx:v0.1' 
+                }
+            }
+        }
+    }
+}

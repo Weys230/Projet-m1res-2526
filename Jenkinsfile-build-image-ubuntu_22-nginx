@@ -20,7 +20,8 @@ pipeline {
                     sh 'docker build -t mynginx .'
                     
                     // Correction : on précise l'image source (mynginx:latest) vers la nouvelle étiquette (mynginx:v0.1)
-                    sh 'docker tag mynginx:latest mynginx:v0.1' 
+                    sh 'docker tag mynginx:latest mynginx:v0.1'
+                    sh 'docker image ls'
                 }
             }
         }

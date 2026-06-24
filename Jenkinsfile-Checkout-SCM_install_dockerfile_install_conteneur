@@ -65,7 +65,7 @@ EOF
                     sh 'docker image ls'
                 }
             }
-        } // CORRECTION : Il manquait cette accolade pour fermer le stage 'build-image-ubuntu-nginx'
+        }
         
         stage('deploiement conteneur') {
             steps {
@@ -75,8 +75,6 @@ EOF
                     sh 'docker rm monapp || true'
 
                     echo "=== Lancement du nouveau conteneur ==="
-                    sh 'docker stop monapp'
-                    sh 'docker rm -f monapp'
                     sh 'docker run -d --name monapp --hostname monapp -p 8585:80 mynginx:v0.1'
                 }
             }
